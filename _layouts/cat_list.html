@@ -1,0 +1,66 @@
+---
+layout: default
+---
+
+<div class="page-with-sidebar">
+<div class="region-page">
+
+  <nav class="breadcrumb" aria-label="위치">
+    <a href="/">홈</a>
+    <span>›</span>
+    <a href="/cat/{{ page.catSlug }}/">{{ page.catLabel }}</a>
+    <span>›</span>
+    <a href="/cat/{{ page.catSlug }}/{{ page.doShort | uri_escape }}/">{{ page.doShort }}</a>
+    <span>›</span>
+    {% if page.level == 'dong' %}
+    <a href="/cat/{{ page.catSlug }}/{{ page.doShort | uri_escape }}/{{ page.sgSlug | uri_escape }}/">{{ page.sigungu }}</a>
+    <span>›</span>
+    <span>{{ page.dongLabel }}</span>
+    {% else %}
+    <span>{{ page.sigungu }}</span>
+    {% endif %}
+  </nav>
+
+  <div class="region-page-header">
+    <h1>{{ page.catIcon }} {{ page.sgLabel }}{% if page.level == 'dong' %} {{ page.dongLabel }}{% endif %} {{ page.catLabel }}</h1>
+    <p>{{ page.scope }} · {{ page.catLabel }} 총 {{ page.totalCount }}곳</p>
+  </div>
+
+  <p class="summary-p">{{ page.summary }}</p>
+
+  {% if page.level == 'sg' %}
+  <div class="chip-row">
+    {% for d in page.dongList %}<a class="chip" href="{% if d.hub %}/cat/{{ page.catSlug }}/{{ page.doShort | uri_escape }}/{{ page.sgSlug | uri_escape }}/{{ d.name | uri_escape }}/{% else %}/region/{{ page.doShort | uri_escape }}/{{ page.sgSlug | uri_escape }}/{{ d.name | uri_escape }}/{% endif %}">{{ d.label }}<em>{{ d.count }}</em></a>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="ad-slot">
+    {% include ad.html %}
+  </div>
+
+  {% if page.truncated %}
+  <div class="info-box">시설이 많아 동·이름순 상위 {{ page.items.size }}곳만 표시합니다. <a href="/search/?q={{ page.sigungu | uri_escape }}%20{{ page.catLabel | uri_escape }}" style="font-weight:700;">검색으로 찾아보기 →</a></div>
+  {% endif %}
+
+  <ul class="office-list">
+    {% for s in page.items %}<li><a href="/place/{{ s.slug }}/"><b>{{ s.facilityName }}</b><small>{% if page.level == 'sg' and s.dong != "기타" %}{{ s.dong }} · {% endif %}{% if s.note != "" %}{{ s.note }} · {% endif %}{% if s.tel != "" %}📞 {{ s.tel }} · {% endif %}{% if s.road != "" %}{{ s.road }}{% else %}{{ s.lot }}{% endif %}</small></a></li>
+    {% endfor %}
+  </ul>
+
+  <div class="tip-box">
+    <h2>{{ page.catLabel }} 이용 전 확인할 점</h2>
+    <p>{{ page.about }}</p>
+    <ul style="margin-top:8px;">{% for t in page.tips %}<li>{{ t }}</li>{% endfor %}</ul>
+    <p class="hub-links" style="margin-top:10px;">
+      {% if page.level == 'dong' %}<a href="/region/{{ page.doShort | uri_escape }}/{{ page.sgSlug | uri_escape }}/{{ page.dong | uri_escape }}/">{{ page.dongLabel }} 전체 동네 가게 →</a>{% endif %}
+      <a href="/cat/{{ page.catSlug }}/{{ page.doShort | uri_escape }}/{{ page.sgSlug | uri_escape }}/">{% if page.level == 'dong' %}{{ page.sigungu }} {{ page.catLabel }} 전체 →{% else %}{{ page.sigungu }} {{ page.catLabel }}{% endif %}</a>
+      <a href="/region/{{ page.doShort | uri_escape }}/{{ page.sgSlug | uri_escape }}/">{{ page.sigungu }} 모든 종류 →</a>
+    </p>
+  </div>
+
+  {% include faq.html %}
+
+</div>
+<aside class="tool-sidebar"></aside>
+</div>

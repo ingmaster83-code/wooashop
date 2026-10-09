@@ -1,0 +1,7 @@
+{% if page.faq.size > 0 %}
+<div class="faq-block">
+  <h2>자주 묻는 질문</h2>
+  {% for f in page.faq %}<details><summary>{{ f.q }}</summary><p>{{ f.a }}</p></details>
+  {% endfor %}
+</div>
+{% endif %}

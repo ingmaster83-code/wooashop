@@ -1,0 +1,54 @@
+---
+layout: default
+---
+
+<div class="page-with-sidebar">
+<div class="region-page">
+
+  <nav class="breadcrumb" aria-label="위치">
+    <a href="/">홈</a>
+    <span>›</span>
+    <a href="/region/{{ page.doShort | uri_escape }}/">{{ page.doShort }}</a>
+    <span>›</span>
+    <a href="/region/{{ page.doShort | uri_escape }}/{{ page.sgSlug | uri_escape }}/">{{ page.sigungu }}</a>
+    <span>›</span>
+    <span>{{ page.dongLabel }}</span>
+  </nav>
+
+  <div class="region-page-header">
+    <h1>🧺 {{ page.sgLabel }} {{ page.dongLabel }} 동네 가게</h1>
+    <p>{{ page.doShort }} {{ page.sigungu }} {{ page.dongLabel }} · 총 {{ page.totalCount }}곳</p>
+  </div>
+
+  <p class="summary-p">{{ page.summary }}</p>
+
+  <div class="chip-row">
+    {% for g in page.groups %}<a class="chip" href="#cat-{{ g.slug }}">{{ g.icon }} {{ g.label }}<em>{{ g.count }}</em></a>
+    {% endfor %}
+  </div>
+
+  <div class="ad-slot">
+    {% include ad.html %}
+  </div>
+
+  {% for g in page.groups %}
+  <h2 class="group-title" id="cat-{{ g.slug }}">{{ g.icon }} {{ page.dongLabel }} {{ g.label }} {{ g.count }}곳
+    {% if g.hubLink %}<a href="/cat/{{ g.slug }}/{{ page.doShort | uri_escape }}/{{ page.sgSlug | uri_escape }}/{{ page.dong | uri_escape }}/">{{ page.dongLabel }} {{ g.label }} 모아보기 →</a>{% endif %}
+  </h2>
+  <ul class="office-list">
+    {% for s in g.items %}<li><a href="/place/{{ s.slug }}/"><b>{{ s.facilityName }}</b><small>{% if s.note != "" %}{{ s.note }} · {% endif %}{% if s.tel != "" %}📞 {{ s.tel }} · {% endif %}{% if s.road != "" %}{{ s.road }}{% else %}{{ s.lot }}{% endif %}</small></a></li>
+    {% endfor %}
+  </ul>
+  {% endfor %}
+
+  {% include faq.html %}
+
+  <div class="tip-box">
+    <h2>{{ page.sigungu }} {{ page.dongLabel }} 동네 가게 이용 전 확인하세요</h2>
+    <p>위 목록은 공공 인허가 데이터에서 영업/정상 상태로 등록된 시설입니다. 휴업·폐업이 반영되기까지 시차가 있으니 방문 전에 전화로 영업 여부와 요금, 운영 시간을 확인하세요.</p>
+    <p style="margin-top:8px;"><a href="/region/{{ page.doShort | uri_escape }}/{{ page.sgSlug | uri_escape }}/">{{ page.sigungu }} 전체 동네 가게 보기 →</a> · {% if page.dong != "기타" %}<a href="https://wooatown.wooahouse.com/동네/{{ page.doShort | uri_escape }}/{{ page.sgSlug | uri_escape }}/{{ page.dong | uri_escape }}/">🏘️ {{ page.dongLabel }} 전체 생활정보 (우아동네) →</a>{% endif %}</p>
+  </div>
+
+</div>
+<aside class="tool-sidebar"></aside>
+</div>

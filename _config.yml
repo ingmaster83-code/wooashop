@@ -1,0 +1,32 @@
+title: 우아가게 - 전국 빨래방·세탁소·안경점·인쇄소·이발소 찾기
+description: >-
+  전국 빨래방·세탁소·안경점·인쇄소·이발소·애견미용 가게의 주소와 전화번호를 동네별로 확인하세요.
+url: "https://wooashop.wooahouse.com"
+baseurl: ""
+lang: ko
+timezone: Asia/Seoul
+author: WooaHouse
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+plugins:
+  - jekyll-seo-tag
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - scripts/
+  - data/
+  - "*.py"
+  - "*.log"
+  - README.md
+  - .gitignore
+  - .env
+  - vendor/
+  - _rawdata/
+
+# 설계 메모: 행안부 LOCALDATA 영업 신고·등록 업소 인허가 CSV(영업/정상)를 가공한 _rawdata/sh_{시도}.json 으로
+# 시도→시군구→동 허브 + 종류×(시도/시군구/동) 허브 + 시설 상세를 생성한다. 사이트맵은 sh_generator.rb 분할본.

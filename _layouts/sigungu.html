@@ -1,0 +1,49 @@
+---
+layout: default
+---
+
+<div class="page-with-sidebar">
+<div class="region-page">
+
+  <nav class="breadcrumb" aria-label="위치">
+    <a href="/">홈</a>
+    <span>›</span>
+    <a href="/region/{{ page.doShort | uri_escape }}/">{{ page.doShort }}</a>
+    <span>›</span>
+    <span>{{ page.sigungu }}</span>
+  </nav>
+
+  <div class="region-page-header">
+    <h1>🧺 {{ page.doShort }} {{ page.sigungu }} 빨래방·안경점·인쇄소</h1>
+    <p>동네 가게 총 {{ page.totalCount }}곳 · 종류 또는 동/읍/면을 선택하세요</p>
+  </div>
+
+  <p class="summary-p">{{ page.summary }}</p>
+
+  <div class="ad-slot">
+    {% include ad.html %}
+  </div>
+
+  <div class="section-title" style="margin:8px 0 12px;">🏷️ {{ page.sigungu }} 종류별</div>
+  <div class="cat-btn-grid">
+    {% for c in page.catList %}<a class="cat-btn" href="/cat/{{ c.slug }}/{{ page.doShort | uri_escape }}/{{ page.sgSlug | uri_escape }}/"><span class="ico">{{ c.icon }}</span>{{ page.sigungu }} {{ c.label }}<small>{{ c.count }}곳</small></a>
+    {% endfor %}
+  </div>
+
+  <div class="section-title" style="margin:32px 0 12px;">📍 {{ page.sigungu }} 동·읍·면별</div>
+  <div class="region-grid">
+    {% for dg in page.dongList %}
+    <a href="/region/{{ page.doShort | uri_escape }}/{{ page.sgSlug | uri_escape }}/{{ dg.name | uri_escape }}/" class="region-btn">
+      <span class="region-icon">📍</span>{{ dg.label }} <span style="color:#9CA3AF;font-size:.82rem;">({{ dg.count }})</span>
+    </a>
+    {% endfor %}
+  </div>
+
+  <div class="tip-box">
+    <h2>{{ page.doShort }} {{ page.sigungu }} 동네 가게 안내</h2>
+    <p>{{ page.doShort }} {{ page.sigungu }}에서 영업 중인 동네 가게를 종류별·동별로 볼 수 있습니다. "기타 지역"은 주소에서 동/읍/면을 확인하지 못한 시설입니다. 방문 전에 전화로 영업 여부와 요금을 확인하세요.</p>
+  </div>
+
+</div>
+<aside class="tool-sidebar"></aside>
+</div>
