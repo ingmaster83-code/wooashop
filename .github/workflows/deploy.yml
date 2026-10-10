@@ -3,7 +3,9 @@ name: Deploy Jekyll to GitHub Pages
 on:
   push:
     branches: [main]
-  workflow_dispatch:
+  schedule:
+    - cron: '40 19 3 * *'   # 매월 4일 새벽 KST — LOCALDATA 최신본을 받아 갱신 후 배포
+  workflow_dispatch:         # 수동 실행도 데이터 갱신 포함
 
 permissions:
   contents: read
@@ -20,6 +22,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup Python
+        if: github.event_name != 'push'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Refresh LOCALDATA (schedule / manual only)
+        if: github.event_name != 'push'
+        run: |
+          pip install requests pyproj
+          bash scripts/refresh.sh
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
